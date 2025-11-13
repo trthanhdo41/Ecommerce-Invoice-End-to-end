@@ -14,9 +14,9 @@ WORKDIR /opt/airflow
 ENV POETRY_HOME=/opt/pysetup/venv
 ENV PATH="${POETRY_HOME}:${PATH}"
 
-COPY pyproject.toml poetry.lock /opt/airflow/
-RUN pip install -U pip poetry==2.1.2
-RUN poetry install --without dev
+COPY pyproject.toml /opt/airflow/
+RUN pip install -U pip
+RUN pip install psycopg2-binary==2.9.10 apache-airflow-providers-postgres==5.11.0
 
 # (Updated May 2025) ML Code Dependencies - No need to install in airflow image, since it execute through DockerOperator
 # COPY code/models/requirements.txt requirements-models.txt

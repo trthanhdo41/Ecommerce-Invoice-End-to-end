@@ -1,3 +1,6 @@
-alternative_cloud_etl.py
+# Disabled DAGs for local development (require GCP variables and providers)
+data_ingestion/
+data_product/ml_dynamic_segment.py
 ecomm_invoice_etl_dag.py
+alternative_cloud_etl.py
 transform_load.py

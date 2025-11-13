@@ -10,7 +10,8 @@ dependencies = [
     "psycopg2-binary==2.9.10", # airflow postgres db backend
     "apache-airflow==2.10.4", # airflow dependency
     "apache-airflow-providers-google==15.1.0", # airflow dependency
-    "apache-airflow-providers-docker==3.10.0" # airflow dependency
+    "apache-airflow-providers-docker==3.10.0", # airflow dependency
+    "apache-airflow-providers-postgres==5.11.0" # postgres provider for airflow
 ]
 
 [tool.poetry]
