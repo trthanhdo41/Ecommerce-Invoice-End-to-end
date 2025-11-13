@@ -1,0 +1,73 @@
+================================================================================
+GCP SETUP GUIDE - Ecommerce Invoice End-to-End Project
+================================================================================
+
+STEP 1: Create GCP Project
+--------
+1. Go to https://console.cloud.google.com/
+2. Create new project: "ecommerce-invoice"
+3. Enable APIs:
+   - BigQuery API
+   - Cloud Storage API
+   - Dataproc API
+   - Cloud Composer API
+
+STEP 2: Create Service Account
+--------
+1. Go to IAM & Admin > Service Accounts
+2. Create service account: "airflow-sa"
+3. Grant roles:
+   - BigQuery Admin
+   - Storage Admin
+   - Dataproc Worker
+4. Create JSON key
+5. Save as: credentials/gcp-key.json
+
+STEP 3: Create GCS Buckets
+--------
+gsutil mb gs://ecommerce-landing/
+gsutil mb gs://ecommerce-staging/
+gsutil mb gs://ecommerce-artifact/
+
+STEP 4: Setup Airflow Variables
+--------
+Access Airflow UI: http://localhost:8080/admin/variables
+
+Create variables:
+1. project_id = "your-gcp-project-id"
+2. region = "us-central1"
+3. gcs = {
+     "landing": "ecommerce-landing",
+     "staging": "ecommerce-staging",
+     "artifact": "ecommerce-artifact"
+   }
+4. gcp_service_account = "airflow-sa@your-project.iam.gserviceaccount.com"
+5. gar_repo = "airflow-docker"
+
+STEP 5: Mount GCP Credentials
+--------
+Edit docker-compose.yml:
+- Windows: ${APPDATA}/gcloud:/gcp/gcloud
+- macOS: ~/.config/gcloud:/gcp/gcloud
+
+Or copy credentials/gcp-key.json to:
+- Windows: %APPDATA%\gcloud\application_default_credentials.json
+- macOS: ~/.config/gcloud/application_default_credentials.json
+
+STEP 6: Enable DAGs
+--------
+Edit src/dags/.airflowignore - remove all lines
+
+STEP 7: Restart Airflow
+--------
+docker-compose restart airflow-webserver airflow-scheduler
+
+STEP 8: Verify
+--------
+- Check DAGs page: http://localhost:8080/dags
+- Should see 3 DAGs:
+  1. ecomm_invoice_etl_dag
+  2. alternative_cloud_etl
+  3. transform_load
+
+================================================================================
