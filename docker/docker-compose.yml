@@ -17,15 +17,15 @@ x-airflow-common:
     - ../src/dags:/opt/airflow/dags
     - ../src/logs:/opt/airflow/logs
     - ../src/config:/opt/airflow/config
-    # airflow-GCP ADC
-    - ${APPDATA}/gcloud:/gcp/gcloud
+    # airflow-GCP ADC (Windows: %APPDATA%\gcloud, macOS: ~/.config/gcloud)
+    - ~/.config/gcloud:/gcp/gcloud
     - ./airflow-entrypoint.sh:/opt/airflow/airflow-entrypoint.sh
     # airflow-kaggle auth
     # - ../credentials/kaggle.json:/home/airflow/.kaggle/kaggle.json
     # airflow-AWS
     # - ../credentials/:/opt/airflow/credentials
-    # for docker operator requied docker sesseion on local
-    - //var/run/docker.sock:/var/run/docker.sock
+    # for docker operator required docker session on local (macOS)
+    - /var/run/docker.sock:/var/run/docker.sock
 
 x-depends-on:
   &depends-on
@@ -51,8 +51,8 @@ services:
 
   postgres-target:
     build:
-      context: .
-      dockerfile: postgres-target.Dockerfile
+      context: ..
+      dockerfile: ./docker/postgres-target.Dockerfile
     image: postgres-target
     container_name: postgres-container-target
     environment:

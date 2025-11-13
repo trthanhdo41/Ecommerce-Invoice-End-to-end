@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-source-init
+  namespace: ecommerce-pipeline
+data:
+  setup.sql: |
+    CREATE SCHEMA IF NOT EXISTS kde_ecomm;
+    
+    DROP TABLE IF EXISTS kde_ecomm.transactions;
+    
+    CREATE TABLE kde_ecomm.transactions (
+        "InvoiceNo" TEXT,
+        "StockCode" TEXT,
+        "Description" TEXT,
+        "Quantity" INT,
+        "InvoiceDate" TIMESTAMP,
+        "UnitPrice" FLOAT,
+        "CustomerID" TEXT,
+        "Country" TEXT
+    );
+    
+    -- Note: CSV data will be loaded by separate initialization process
+    -- COPY kde_ecomm.transactions FROM '/data/uncleaned_data.csv' DELIMITER ',' CSV HEADER;

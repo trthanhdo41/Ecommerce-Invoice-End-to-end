@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-target-init
+  namespace: ecommerce-pipeline
+data:
+  target.sql: |
+    CREATE SCHEMA IF NOT EXISTS public;
+    
+    -- Customer segmentation results table
+    CREATE TABLE IF NOT EXISTS public.customer_segments (
+        customer_id VARCHAR(50) PRIMARY KEY,
+        segment VARCHAR(50),
+        rfm_score INT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+    
+    -- RFM analysis results
+    CREATE TABLE IF NOT EXISTS public.rfm_analysis (
+        customer_id VARCHAR(50) PRIMARY KEY,
+        recency INT,
+        frequency INT,
+        monetary FLOAT,
+        rfm_score INT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+    
+    -- Processed transactions
+    CREATE TABLE IF NOT EXISTS public.transactions_processed (
+        "InvoiceNo" TEXT,
+        "StockCode" TEXT,
+        "Description" TEXT,
+        "Quantity" INT,
+        "InvoiceDate" TIMESTAMP,
+        "UnitPrice" FLOAT,
+        "CustomerID" TEXT,
+        "Country" TEXT,
+        processed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
