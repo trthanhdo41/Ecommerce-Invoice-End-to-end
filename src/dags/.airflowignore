@@ -1,4 +1,4 @@
-# Disabled DAGs for local development (require GCP variables and providers)
+# Disabled DAGs for local development (require GCP variables)
 data_ingestion/
 data_product/ml_dynamic_segment.py
 ecomm_invoice_etl_dag.py
