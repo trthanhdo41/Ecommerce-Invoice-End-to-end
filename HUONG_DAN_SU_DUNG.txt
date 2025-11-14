@@ -1,0 +1,29 @@
+HƯỚNG DẪN CHẠY DỰ ÁN
+
+1. cd Ecommerce-Invoice-End-to-end
+
+2. Chạy hệ thống
+Bật Docker Desktop trước
+Chạy: docker-start.bat up
+Đợi khoảng 2-3 phút
+
+3. Vào giao diện
+Mở trình duyệt: http://localhost:8080
+Đăng nhập: airflow / airflow
+
+4. Dừng hệ thống
+docker-start.bat down
+
+6. Triển khai K8s (nếu cần)
+k8s-deploy.bat up
+
+Lỗi thường gặp:
+- Không vào được web: kiểm tra Docker có chạy không
+- 2 container airflow-scheduler và airflow-webserver hiển thị 0% CPU (không hoạt động):
+  Nguyên nhân: Container bị crash hoặc không khởi động được
+  Cách fix: Chạy docker-start.bat restart để khởi động lại
+  Kiểm tra: Vào Docker Desktop xem CPU% phải > 0
+- Container lỗi: chạy docker-start.bat restart
+- Hết dung lượng: docker system prune -a
+
+
