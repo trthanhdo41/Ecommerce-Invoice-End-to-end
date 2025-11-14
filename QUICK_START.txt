@@ -1,0 +1,37 @@
+================================================================================
+QUICK START - Ecommerce Invoice End-to-End Project
+================================================================================
+
+STEP 1: Clone Repository
+--------
+git clone https://github.com/trthanhdo41/Ecommerce-Invoice-End-to-end.git
+cd Ecommerce-Invoice-End-to-end
+
+STEP 2: Start Docker Services (Windows)
+--------
+docker-start.bat up
+
+STEP 3: Access Airflow UI
+--------
+URL: http://localhost:8080
+Username: airflow
+Password: airflow
+
+STEP 4: Check Services
+--------
+✅ postgres-source (port 5432)
+✅ postgres-target (port 5433)  
+✅ airflow-webserver (port 8080)
+✅ airflow-scheduler
+✅ airflow-postgres
+
+STEP 5: For Production (K8s)
+--------
+k8s-deploy.bat up
+
+NOTES:
+- All DAGs require GCP setup (see GCP_SETUP.txt)
+- Demo variables already configured
+- Ready for deployment
+
+================================================================================
